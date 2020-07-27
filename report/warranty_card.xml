@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<template id="report_warranty_detail">
+    <data>
+        <report
+            id="warranty_card"
+            string="Warranty Card"
+            model="warranty.details"
+            report_type="qweb-pdf"
+            name="bt_sales_warranty.warranty_card_template"
+            file="bt_sales_warranty.warranty_card"/>
+
+        <!-- Template nya -->
+        <template id="warranty_card_template">
 	    	<t t-call="report.html_container">
 	            <t t-foreach="docs" t-as="doc">	            	             
 	                <div class="header">
@@ -47,7 +56,7 @@
 				            </div>
 							<div class="row" style="margin-top: 20px;">
 				                <div class="col-xs-12">
-				                    <table class="table table-condensed table-bordered" style="margin-top: 5px;font-size: 11px;">
+				                    <table class="table" style="margin-top: 5px; font-size: 11px; border-style: solid; border-width: 1px; border-color: black;">
 				                        <thead>
 				                            <tr>
 				                                <td class="text-center" style="border:1px solid #000;font-sie:13px;width:25%;">Produk</td>
@@ -110,90 +119,106 @@
 					            	</table>
 					        	</div>
 					        </div>
-					       	<div class="row" style="margin-top: 20px;">
-					       		<table class="table table-bordered" style="margin-top: 10px; font-size: 11px;">
+                            <div class="row" style="margin-top: 20px;">
+                                <table class="table table-bordered" style="margin-top: 10px; font-size: 11px;">
+                                    <thead>
 		                                <tr>
 		                                    <td colspan="2" class="text-center" style="border:1px solid #000;background-color:#999">
 		                                        
 		                                    <b>WARRANTY    INFORMATION</b></td>
 		                                    
 		                                    </tr>
-										
+									</thead>
+                                    <tbody>
 										<tr>
 		    								<br/>
 										    <td class="text-left" style="border:1px solid #000; width:50%;">
 					     		      			<span><strong>A. KETENTUAN UMUM</strong><br/>
-												<div style="text-align:justify;">
-												1. Garansi ini diberikan untuk produk ICE Board Interactive Flat Panel dan OPS yang dikeluarkan InnoGRAPH dan hanya berlaku di Indonesia.<br/>
-												2. Garansi ini berlaku hingga tanggal masa berakhir yang tertera di Sertifikat Garansi/Tanda Terima (tanggal kirim unit). Masa garansi mulai berlaku sejak tanggal barang dikirim ke konsumen.<br/>
-												3. Konsumen yang ingin memperpanjang masa garansi (Extended Warranty) hanya bisa melakukan di awal pembelian. Extended Warranty tidak bisa dilakukan setelah masa garansi berakhir.<br/>
-												4. Perbaikan dilakukan dengan tahapan:<br/>
-													A)Remote/Phone Support<br/>
-													B)On-Site Support<br/>
-													  Service Level Agreement (SLA)*<br/> 
-													<table class="table table-condensed table-bordered" style="margin-top: 5px;font-size: 11px;">
-														<thead>
-															<tr>
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:25%;">Response time 3 jam 
-																</td>
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">3 jam 
-																</td>
-															</tr>	
-															<tr>	
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">Resolution time Jabodetabek
-																</td>
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">	1 x 24 jam 
-																</td>
-															</tr>
-															<tr>	
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">Resolution time Pulau Jawa, Bali, Sumatera
-																</td>
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">	3 x 24 jam 
-																</td>
-															</tr>
-															<tr>	
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">Resolution time non-Pulau Jawa, Bali, Sumatera	
-																</td>
-																<td class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">5 x 24 jam 
-																</td>
-															</tr>
-														</thead>		
-													</table>
-												*hari dan jam kerja, Senin – Jumat pukul 8.30 – 17.30 <br/> 
-         										*Response time: InnoGRAPH menerima keluhan / laporan sampai dengan melakukan eskalasi melalui telepon / email / whatsapp <br/>
-  												*Resolution time: InnoGRAPH menemukan permasalahan dan solusinya atau perkiraan perbaikan (waktu dan spare parts <br/>
-												5.Item yang dicakup garansi:<br/>
-													a) 3 tahun panel layar ICE Board<br/>
-													b) 3 tahun suku cadang ICE Board (spare parts)<br/>
-													c) 3 tahun service ICE Board (Jabodetabek)<br/>
-													d) d.3 tahun untuk OPS Luar<br/>
-												*Luar Jabodetabek biaya akomodasi dan transportasi ditanggung klien<br/>
-												</div></span><br/>					   			   
+                                                    <div style="text-align:justify font-size:12px;;">
+                                                        <ol style="margin-left:20px;">
+                                                            <li>Garansi ini diberikan untuk produk ICE Board Interactive Flat Panel dan OPS yang dikeluarkan InnoGRAPH dan hanya berlaku di Indonesia.</li>
+                                                            <li>Garansi ini berlaku hingga tanggal masa berakhir yang tertera di Sertifikat Garansi/Tanda Terima (tanggal kirim unit). Masa garansi mulai berlaku sejak tanggal barang dikirim ke konsumen.</li>
+                                                            <li>Konsumen yang ingin memperpanjang masa garansi (Extended Warranty) hanya bisa melakukan di awal pembelian. Extended Warranty tidak bisa dilakukan setelah masa garansi berakhir.</li>
+                                                            <li>Perbaikan dilakukan dengan tahapan: <br/>
+                                                                <ol style="list-style-type:lower-alpha; margin-left:20px;">
+                                                                    <li>Remote/Phone Support</li>
+                                                                    <li>On-Site Support</li>
+                                                                    Service Level Agreement (SLA)*<br/>
+                                                                    <table class="table table-bordered" style="margin-top: 5px;font-size: 11px; margin-right:200px;">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td  style="border:1px solid #000;font-size:11px;">Response time 3 jam </td>
+                                                                                <td  style="border:1px solid #000;font-size:11px;">3 jam </td>
+                                                                            </tr>	
+                                                                            <tr>	
+                                                                                <td  style="border:1px solid #000;font-size:11px;">Resolution time Jabodetabek </td>
+                                                                                <td  style="border:1px solid #000;font-size:11px;">1 x 24 jam </td>
+                                                                            </tr>
+                                                                            <tr>	
+                                                                                <td  style="border:1px solid #000;font-size:11px;">Resolution time Pulau Jawa, Bali, Sumatera</td>
+                                                                                <td  style="border:1px solid #000;font-size:11px;">3 x 24 jam </td>
+                                                                            </tr>
+                                                                            <tr>	
+                                                                                <td  style="border:1px solid #000;font-size:11px;">Resolution time non-Pulau Jawa, Bali, Sumatera </td>
+                                                                                <td  style="border:1px solid #000;font-size:11px;">5 x 24 jam </td>
+                                                                            </tr>
+                                                                        </tbody>		
+                                                                    </table>
+                                                                    <p style="margin-top: 5px;font-size:9px;">
+                                                                    *hari dan jam kerja, Senin – Jumat pukul 8.30 – 17.30 <br/>
+                                                                    *Response time: InnoGRAPH menerima keluhan / laporan sampai dengan melakukan eskalasi melalui
+                                                                    telepon / email / whatsapp <br/>
+                                                                    *Resolution time: InnoGRAPH menemukan permasalahan dan solusinya atau perkiraan perbaikan (waktu
+                                                                    dan spare parts) <br/>
+                                                                    </p>
+                                                                </ol>
+                                                            </li>
+                                                            <li>Item yang dicakup garansi:</li>
+                                                                <ol style="text-align:italic; list-style-type:lower-alpha; margin-left:20px;">
+                                                                    <li>3 tahun panel layar ICE Board</li>
+                                                                    <li>3 tahun suku cadang ICE Board (spare parts)</li>
+                                                                    <li>3 tahun service ICE Board (Jabodetabek)</li>
+                                                                    <li>3 tahun untuk OPS Luar</li>
+                                                                        *Luar Jabodetabek biaya akomodasi dan transportasi ditanggung klien
+                                                                </ol>
+                                                        </ol>
+                                                    </div>
+                                                </span>
 										    </td>									    
 										</tr>
 										<tr>
 		    								<br/>	
 										    <td class="text-left" style="border:1px solid #000; width:50%;">
 					     		      			<span><strong>B. KETENTUAN TIDAK BERLAKU</strong><br/>
-												<div style="text-align:justify;">1. FORCE MAJEURE (KEADAAN KAHAR)<br/>
-												 	a.Bencana alam / faktor alam (gempa bumi, banjir, tsunami, longsor, gunung meletus, terkena petir, badai, dsb).<br/>
-													b.Huru-hara, peperangan, kerusuhan, pemogokan, kebakaran.<br/>
-													c.Bencana lainnya yang harus dinyatakan oleh pejabat/instansi yang berwenang.<br/>
-													d.Gigitan hewan/tindakan hewan (Kerusakan yang diakibatkan kena serangga/binatang, contoh: tikus, cicak, semut, dsb)<br/>
-												2. HUMAN ERROR (Kerusakan yang ditimbulkan akibat kelalaian manusia)<br/>
-													a.Terjatuh dan pecah.<br/>
-													b.Tergores, karatan, noda yang disebabkan oleh penggunaan sehari-hari.<br/>
-													c.Kabel power unit tidak sengaja/sengaja dicabut tanpa mematikan (turn off) ICE Board.<br/>
-													d.Terkena cairan, terkena makanan/minuman dan cara pembersihan ICE Board yang tidak tepat.<br/>
-													e.Perbaikan dan penggantian spare parts yang tidak dilakukan oleh teknisi InnoGRAPH.<br/>
-												3. TEGANGAN LISTRIK TIDAK STABIL<br/>
-													Tegangan listrik (voltage dan frekuensi) yang terlalu rendah/tinggi (tidak stabil) di lokasi yang berpengaruh pada kinerja ICE Board. Perhatikan standard minimal kebutuhan listrik sebelum pasang.<br/>
-												4. KERUSAKAN AKSESORIS<br/>
-												 	Remote, kabel power, kabel HDMI, Dual Band WIFI, bracket dan Stylus Pen tidak dicakup garansi.<br/>
-												5. KERUSAKAN SPARE PARTS YANG SAMA<br/>
-												 	Kerusakan pada komponen tertentu yang sudah pernah diklaim.</div></span><br/>			   			   
+												<div style="text-align:justify;">
+                                                    <ol style="margin-left:20px;">
+                                                        <strong><li>FORCE MAJEURE (KEADAAN KAHAR)</li></strong>
+                                                            <ol style="list-style-type:lower-alpha; margin-left:20px;">
+                                                                <li> Bencana alam / faktor alam (gempa bumi, banjir, tsunami, longsor, gunung meletus, terkena petir, badai, dsb).</li>
+                                                                <li>Huru-hara, peperangan, kerusuhan, pemogokan, kebakaran.</li>
+                                                                <li>Bencana lainnya yang harus dinyatakan oleh pejabat/instansi yang berwenang.</li>
+                                                                <li>Gigitan hewan/tindakan hewan (Kerusakan yang diakibatkan kena serangga/binatang, contoh: tikus, cicak, semut, dsb).</li>
+                                                            </ol>
+                                                        <strong><li> HUMAN ERROR</li></strong>
+                                                            Kerusakan yang ditimbulkan akibat kelalaian manusia, seperti:
+                                                            <ol style="list-style-type:lower-alpha; margin-left:20px;">
+                                                                <li>Terjatuh dan pecah.</li>
+                                                                <li>Tergores, karatan, noda yang disebabkan oleh penggunaan sehari-hari.</li>
+                                                                <li>Kabel power unit tidak sengaja/sengaja dicabut tanpa mematikan (turn off) ICE Board.</li>
+                                                                <li>Terkena cairan, terkena makanan/minuman dan cara pembersihan ICE Board yang tidak tepat.</li>
+                                                                <li>Perbaikan dan penggantian spare parts yang tidak dilakukan oleh teknisi InnoGRAPH.</li>
+                                                            </ol>
+                                                        <strong><li> TEGANGAN LISTRIK TIDAK STABIL</li></strong>
+                                                            Tegangan listrik (voltage dan frekuensi) yang terlalu rendah/tinggi (tidak stabil) di lokasi yang berpengaruh pada kinerja ICE Board. Perhatikan standard minimal kebutuhan listrik sebelum pasang.
+                                                        <strong><li> KERUSAKAN AKSESORIS</li></strong>
+                                                            Remote, kabel power, kabel HDMI, Dual Band WIFI, bracket dan Stylus Pen tidak dicakup garansi.
+                                                        <strong><li> KERUSAKAN SPARE PARTS YANG SAMA</li></strong>
+                                                            Kerusakan pada komponen tertentu yang sudah pernah diklaim.
+                                                    </ol>
+                                                </div></span>
 										    </td>						    
-										</tr>				
+										</tr>
+                                    </tbody>
 								</table>
 							</div>
 							<div>
@@ -233,9 +258,8 @@
 		                            </table>
 		                        </div>
 		                    </div>
-		             
 		            </t>
-		        </t>
+		            </t>
 		    </template>
-	</data>
+    </data>
 </odoo>

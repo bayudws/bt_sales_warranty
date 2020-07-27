@@ -11,14 +11,14 @@ class Service(models.Model):
 
     @api.multi
     def count_task(self):
-        count = self.env['project.task'].search_count([('warranty_id','=',self.id)])
+        count = self.env['project.task'].search_count([('project_id','=',"Service Task")])
         self.task_count = count
 
     name = fields.Char(string='Service ID',  copy=False,  index=True, default=lambda self: _('New'))
     warranty_id = fields.Many2one('warranty.details',string='Warranty')
-    product_id = fields.Many2one('product.product',string='Product', related='warranty_id.product_id')
+    product_id = fields.Many2one('product.template',string='Product', related='warranty_id.product_id')
     partner_id = fields.Many2one('res.partner',string='Customer', track_visibility='onchange', related='warranty_id.partner_id')
-    sno = fields.Char(string='Serial No' , related='warranty_id.sno')
+    sno_id = fields.Many2one('mrp.serial.number', string='Serial No')
     warranty_end_date = fields.Date(string='Warranty End Date', related='warranty_id.warranty_end_date')
     date_received = fields.Date(string='Received Date',track_visibility='onchange',default=datetime.now())
     complaint_note = fields.Text(string='Description',track_visibility='onchange')
@@ -68,25 +68,24 @@ class Service(models.Model):
             
     @api.multi
     def action_warranty_task(self):
-        task = self.env['project.task'].search([('warranty_id','=',self.id)])
-        action = self.env.ref('project.view_task_form2').read()[0]
-        action['context'] = {'default_warranty_id':self.id}
-        action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
-
+        task = self.env['project.task'].search([('project_id','=',"Service Task")])
+        action = self.env.ref('project.action_view_task').read()[0]
+        action['context'] = {'warranty_id':self.id}
         if len(task) > 1:
             action['domain'] = [('id', 'in', task.ids)]
-        elif len(task) == 1:
-            action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
-            action['res_id'] = task.ids[0] 
+        # elif len(task) == 1:
+        #     action['views'] = [(self.env.ref('project.action_view_task').id, 'form')]
+        #     action['res_id'] = task.ids[0] 
         else:
             action['domain'] = [('id', 'in', task.ids)]
         return action
     # vim:expandtab:smartindent:tabstop=2:softtabstop=2:shiftwidth=2:    
     
-    class ServiceTask(models.Model):
-        _inherit = 'project.task'
+    # class ServiceTask(models.Model):
+    #     _inherit = 'project.task'
 
-        warranty_id = fields.Many2one('warranty.details',string='Warranty')
+    #     warranty_id = fields.Many2one(comodel_name='warranty.details',string='Warranty')
+    
     
     class ResPartner(models.Model):
         _inherit = 'res.partner'
@@ -101,4 +100,3 @@ class Service(models.Model):
                 'view_type': 'form',
                 'context': {'default_user_id': self.id},
                 }
-
